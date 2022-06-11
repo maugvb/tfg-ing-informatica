@@ -1,0 +1,34 @@
+version: '3'
+services:
+  webrtc:
+    build: ./
+    volumes:
+      - ./data:/home/hpc/data
+      - ./data/models:/home/hpc/data/models
+      - ./janus:/home/hpc/janus
+      - ./index.html:/home/hpc/index.html
+      - ./janus.py:/home/hpc/janus.py
+      - ./server-old.py:/home/hpc/server.py
+      - ./start_webrtc.sh:/home/hpc/start.sh
+      - ./client.js:/home/hpc/client.js
+      - ./demo-instruct.wav:/home/hpc/demo-instruct.wav
+    ports:
+      - "8080:8080"
+      # - "6001:6001"
+      - "6001:6001/udp"
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    shm_size: '1gb'
+    networks:
+      colosseum_net:
+        ipv4_address: 10.5.0.3
+
+networks:
+  colosseum_net:
+    name: colosseum_net
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1

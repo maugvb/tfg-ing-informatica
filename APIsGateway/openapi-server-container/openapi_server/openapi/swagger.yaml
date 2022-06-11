@@ -1,0 +1,1179 @@
+openapi: 3.0.3
+info:
+  title: Colosseum
+  description: This is a server for users in Colosseum Project
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost/
+  description: Development server
+tags:
+- name: admin
+  description: User Admin Actions
+- name: guide
+  description: User Guide Actions
+paths:
+  /user:
+    post:
+      tags:
+      - admin
+      summary: Create a new user
+      description: Create a new user
+      operationId: create_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid user supplied
+        "409":
+          description: Email already registered
+      x-openapi-router-controller: openapi_server.controllers.admin_controller
+  /user/createWithList:
+    post:
+      tags:
+      - admin
+      summary: Creates list of users with given input array
+      description: Creates list of users with given input array
+      operationId: create_user_with_list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid user supplied
+        "409":
+          description: Email already registered
+      x-swagger-router-controller: UserController
+      x-openapi-router-controller: openapi_server.controllers.admin_controller
+  /user/{username}:
+    get:
+      tags:
+      - admin
+      summary: Get a user by username
+      description: Get a user by username
+      operationId: get_user_by_username
+      parameters:
+      - name: username
+        in: path
+        description: Username of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/User/properties/username'
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+      x-openapi-router-controller: openapi_server.controllers.admin_controller
+    put:
+      tags:
+      - admin
+      - guide
+      summary: Update a user by username
+      description: Update a user by username
+      operationId: update_user_by_username
+      parameters:
+      - name: username
+        in: path
+        description: Username of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/User/properties/username'
+      requestBody:
+        description: Update an existent user in db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Successfully updated
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+      x-swagger-router-controller: UserController
+      x-openapi-router-controller: openapi_server.controllers.admin_controller
+    delete:
+      tags:
+      - admin
+      summary: Delete a user by username
+      description: Delete a user by username
+      operationId: delete_user_by_username
+      parameters:
+      - name: username
+        in: path
+        description: Username of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/User/properties/username'
+      responses:
+        "200":
+          description: Successfully deleted
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+        "404":
+          description: User not found
+      x-openapi-router-controller: openapi_server.controllers.admin_controller
+  /user/getAllUsers:
+    get:
+      tags:
+      - admin
+      summary: Get all users
+      description: Get all users
+      operationId: get_all_users
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /anchor:
+    post:
+      tags:
+      - guide
+      summary: Create a new anchor
+      description: Create a new anchor
+      operationId: create_anchor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Anchor'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anchor'
+        "400":
+          description: Invalid anchor supplied
+        "409":
+          description: Anchor already registered
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /anchor/createWithList:
+    post:
+      tags:
+      - guide
+      summary: Creates list of anchors with given input array
+      description: Creates list of anchors with given input array
+      operationId: create_anchor_with_list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Anchor'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anchor'
+        "400":
+          description: Invalid anchor supplied
+        "409":
+          description: Anchor already registered
+      x-swagger-router-controller: AnchorController
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /anchor/{anchorId}:
+    get:
+      tags:
+      - guide
+      summary: Get anchor by id
+      description: Get anchor by id
+      operationId: get_anchor_by_id
+      parameters:
+      - name: anchorId
+        in: path
+        description: Alias of the anchor
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Anchor/properties/anchor_id'
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anchor'
+        "404":
+          description: Anchor not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    put:
+      tags:
+      - guide
+      summary: Update anchor by id
+      description: Update anchor by id
+      operationId: update_anchor_by_id
+      parameters:
+      - name: anchorId
+        in: path
+        description: Alias of the anchor
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Anchor/properties/anchor_id'
+      requestBody:
+        description: Update an existent anchor in db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Anchor'
+      responses:
+        "200":
+          description: Successfully updated
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Anchor'
+        "404":
+          description: Anchor not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    delete:
+      tags:
+      - guide
+      summary: Delete anchor by alias
+      description: Delete anchor by alias
+      operationId: delete_anchor_by_alias
+      parameters:
+      - name: anchorId
+        in: path
+        description: Alias of the anchor
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Anchor/properties/anchor_id'
+      responses:
+        "200":
+          description: Successfully deleted
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+        "404":
+          description: Anchor not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /tag:
+    get:
+      tags:
+      - guide
+      summary: Get all tags
+      description: Get all tags
+      operationId: get_all_tags
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTags'
+        "404":
+          description: Tag not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    post:
+      tags:
+      - guide
+      summary: Create a new tag
+      description: Create a new tag
+      operationId: create_tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        "400":
+          description: Invalid tag supplied
+        "409":
+          description: Tag already registered
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /tag/getTagsWithUsers:
+    get:
+      tags:
+      - guide
+      summary: Get all tags with users
+      description: Get all tags with users
+      operationId: get_all_tags_with_users
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+        "404":
+          description: Tag not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /tag/createWithList:
+    post:
+      tags:
+      - guide
+      summary: Creates list of tags with given input array
+      description: Creates list of tags with given input array
+      operationId: create_tag_with_list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        "400":
+          description: Invalid tag supplied
+        "409":
+          description: Tag already registered
+      x-swagger-router-controller: TagController
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /tag/{tag_alias}:
+    get:
+      tags:
+      - guide
+      summary: Get tag by alias
+      description: Get tag by alias
+      operationId: get_tag_by_alias
+      parameters:
+      - name: tag_alias
+        in: path
+        description: Alias of the tag
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Tag/properties/alias'
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        "404":
+          description: Tag not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    put:
+      tags:
+      - guide
+      summary: Update tag by alias
+      description: Update tag by alias
+      operationId: update_tag_by_alias
+      parameters:
+      - name: tag_alias
+        in: path
+        description: Alias of the tag
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Tag/properties/alias'
+      requestBody:
+        description: Update an existent tag in db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        "200":
+          description: Successfully updated
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        "404":
+          description: Tag not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    delete:
+      tags:
+      - guide
+      summary: Delete tag by alias
+      description: Delete tag by alias
+      operationId: delete_tag_by_alias
+      parameters:
+      - name: tag_alias
+        in: path
+        description: Alias of the tag
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Tag/properties/alias'
+      responses:
+        "200":
+          description: Successfully deleted
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+        "404":
+          description: Tag not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  
+  /anchor/getAllAnchors:
+    get:
+      tags:
+      - guide
+      summary: Get all anchors
+      description: Get all anchors
+      operationId: get_all_anchors
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anchor'
+        "404":
+          description: Anchor not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /room:
+    post:
+      tags:
+      - guide
+      summary: Create a room
+      description: Create a new room
+      operationId: create_room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        "400":
+          description: Invalid Room supplied
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+  /room/{room_alias}:
+    get:
+      tags:
+      - guide
+      summary: Get room by alias
+      description: Get room by alias
+      operationId: get_room_by_alias
+      parameters:
+      - name: room_alias
+        in: path
+        description: id of the room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Room/properties/alias'
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        "404":
+          description: Room not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+    put:
+      tags:
+      - guide
+      summary: Update room by alias
+      description: Update room by alias
+      operationId: update_room_by_alias
+      parameters:
+      - name: room_alias
+        in: path
+        description: id of the room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Room/properties/alias'
+      requestBody:
+        description: Update an existent room in db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        "200":
+          description: Successfully updated
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        "404":
+          description: Room not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+    delete:
+      tags:
+      - guide
+      summary: Delete room by alias
+      description: Delete room by alias
+      operationId: delete_room_by_alias
+      parameters:
+      - name: room_alias
+        in: path
+        description: id of the room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Room/properties/alias'
+      responses:
+        "200":
+          description: Successfully deleted
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+        "404":
+          description: Room not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+  /room/getAllRooms:
+    get:
+      tags:
+      - guide
+      summary: Get all rooms
+      description: Get all rooms
+      operationId: get_all_rooms
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+        "404":
+          description: Rooms not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /anchor/getRoomFromATag/{tag_alias}:
+    get:
+      tags:
+      - guide
+      summary: Get room from tag
+      description: Get room from tag
+      operationId: get_room_from_tag
+      parameters:
+        - name: tag_alias
+          in: path
+          description: alias of the tag
+          required: true
+          style: simple
+          explode: false
+          schema:
+            $ref: '#/components/schemas/Tag/properties/alias'
+
+      responses:
+            "200":
+              description: Successfully retrieved
+              headers:
+                Access-Control-Allow-Origin:
+                  schema:
+                    type: string
+                Access-Control-Allow-Methods:
+                  schema:
+                    type: string
+                Access-Control-Allow-Headers:
+                  schema:
+                    type: string
+              content:
+                application/json:
+                  schema:
+                    type: string
+
+            "404":
+              description: Room not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+  /room/getAllUsersFromRoom/{room_alias}:
+    get:
+      tags:
+      - guide
+      summary: Get all users from room
+      description: Get all users from room
+      operationId: get_all_users_from_room
+      parameters:
+      - name: room_alias
+        in: path
+        description: alias of the room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Room/properties/alias'
+      responses:
+        "200":
+          description: Successfully retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numberUsers:
+                    type: integer
+
+        "404":
+          description: Users not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  
+  /artwork:
+    post:
+      tags:
+      - guide
+      summary: create new artwork
+      description: create new artwork
+      operationId: create_artwork
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artwork'
+        required: true
+      responses:
+        '200':
+          description: Succesfully created
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+        '400':
+          description: Invalid Artwork supplied
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+  /artwork/{name}:
+    get:
+      tags:
+      - guide
+      summary: Get artwork by name
+      description: Get artwork by name
+      operationId: get_artwork_by_name
+      parameters:
+      - name: name
+        in: path
+        description: name of the artwork
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Artwork/properties/name'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+        '404':
+          description: Artwork not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+    put:
+      tags:
+      - guide
+      summary: Update artwork by name
+      description: Update artwork by name
+      operationId: update_artwork_by_name
+      parameters:
+      - name: name
+        in: path
+        description: name of the artwork
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/Artwork/properties/name'
+      requestBody:
+        description: Update an existent artwork in db
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Artwork'
+      responses:
+        '200':
+          description: Succesfully updated
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artwork'
+        '404':
+          description: Artwork not found
+      x-openapi-router-controller: openapi_server.controllers.guide_controller
+
+components:
+  schemas:
+    Artwork:
+      type: object
+      properties:
+        artwork_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        draw:
+          type: string
+      example:
+        name: "Artwork 1"
+        draw: "draw"
+      
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        username:
+          type: string
+          description: Username of the user
+        email:
+          type: string
+          description: Email address
+          format: email
+        password:
+          type: string
+          description: Password
+          format: password
+        firstName:
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        phone:
+          type: string
+          description: User's Phone
+          format: phone
+        role:
+          type: string
+          description: User role
+          enum:
+          - guide
+          - admin
+        last_seen:
+          type: string
+          description: Last seen
+        chat_id:
+          type: string
+          x-nullable: true
+        active:
+          type: boolean
+          description: User active
+        uwb_id:
+          type: string
+          description: UWB ID Alias
+          x-nullable: true
+      example:
+        firstName: firstName
+        lastName: lastName
+        password: ""
+        role: guide
+        phone: phone
+        email: "mdearmas@vicomtech.org"
+        username: username
+        last_seen: "2020-04-01T00:00:00.000Z"
+        chat_id: "1"
+        active: true
+        uwb_id: "1"
+    Anchor:
+      type: object
+      properties:
+        anchor_id:
+          type: integer
+          format: int64
+        Latitude:
+          type: number
+          format: double
+        Longitude:
+          type: number
+          format: double
+        alias:
+          type: string
+          description: Anchor alias
+      example:
+        alias: alias
+        Latitude: 6.027456183070403
+        anchor_id: 0
+        Longitude: 1.4658129805029452
+    Tag:
+      type: object
+      properties:
+        tag_id:
+          type: integer
+          format: int64
+        alias:
+          type: string
+          description: Tag alias
+        coordinates:
+          type: string 
+        latitude:
+          type: number
+        longitude:
+          type: number
+        last_update:
+          type: string
+      example:
+        coordinates: '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[16.248528,39.309966]}}'
+        alias: alias
+        latitude: 39.309966
+        longitude: 16.248528
+        last_update: "2020-04-01T00:00:00.000Z"
+    Room:
+      type: object
+      properties:
+        room_id:
+          type: integer
+          format: int64
+        alias:
+          type: string
+          description: Room alias
+        coordinates:
+          type: string
+          description: Room alias
+      example:
+        alias: alias
+        coordinates: "[[1.4658129805029452, 6.027456183070403 ],[1.4658129805029452, 6.027456183070403]]"
+
+    ListTags:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'  
+

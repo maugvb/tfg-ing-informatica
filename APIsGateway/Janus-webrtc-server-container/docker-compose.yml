@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  janus_server:
+    build:
+      context: .
+    #command: ["-S", "173.194.196.127:19302"]
+    ports:
+      - "8088:8088"
+      - "8089:8089"
+      - "7088:7088"
+      - "7089:7089"
+      - "8188:8188"
+      - "8889:8889"
+      - "8000:8000"
+      - "10000-10300:10000-10300/udp"
+    volumes:
+      - ./conf:/opt/janus/etc/janus
+      - ./certs:/opt/janus/share/janus/certs
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 100000
+        hard: 100000
+    restart: always
+    networks:
+      colosseum_net:
+        ipv4_address: 10.5.0.2
+
+networks:
+  colosseum_net:
+    name: colosseum_net
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1

@@ -1,0 +1,54 @@
+.headerSection{
+    padding-left: 20px;
+}
+.headerSectionText{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+.divisorHeaderSection{
+    border-bottom: 1px solid grey;
+    margin:0;
+}
+
+.anchorIconSidebarInfo{
+    width: 45px;
+    height: 45px;
+}
+
+.listItem{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+
+.listItemFlexContainer{
+
+    max-width: 10rem;
+}
+
+.listItemContainer{
+    max-width: calc(19rem - 10px);
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.listItemContainerTextBody{
+    font-size: 10px;
+}
+.listItemNoElement{
+    padding-left: 0;
+}
+.listItemNoElementFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+}
+.listItemNoElementContent{
+    font-size: 10px;
+    color: grey;
+}

@@ -1,0 +1,98 @@
+
+
+h1{
+  margin:0;
+}
+.App{
+  //background-color: white !important;
+}
+#map {
+  top: 0;
+  bottom: 0;
+  height: calc(100vh);
+  width: 100%;
+}
+.closed-sidebar-map{
+  width: 100%;
+}
+.opened-sidebar-map{
+  width: calc(100% - 19rem);
+}
+.sidebar{
+  width: 19rem;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.header-container{
+  width: 100%;
+  height: 305px;
+  background-color: #888888;
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+}
+.item{
+  margin-left: 1rem;
+}
+#body-sidebar > p{
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+#header-sidebar{
+  /*margin-top: 5rem;*/
+  color: #fff;
+}
+#close-sidebar1{
+  position: absolute;
+  left: 270px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 9;
+}
+.closed-sidebar{
+  display: none;
+}
+
+.opened-sidebar{
+  display: block;
+}
+.buttonContainer{
+  margin: 10px;
+}
+.buttonContainer button{
+  margin-left: 10px;
+}
+.buttonsContainer{
+  display: flex;
+  flex-flow: column;
+  width: 70%;
+}
+.buttonsContainer button:last-child{
+  margin-top: 10px;
+  
+}
+.WrapperButtons{
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  margin: 25px 0;
+}
+.WrapperButtonsVisible{
+  display: flex;
+}
+.WrapperButtonsHidden{
+  display: none;
+}
+
+.edit-rooms{
+  left: 536px;
+}

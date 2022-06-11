@@ -1,0 +1,73 @@
+@import '../../scss/colors.scss';
+@import '../../scss/typography.scss';
+
+.login-grid {
+  .grid {
+    box-sizing: border-box;
+    display: grid;
+    padding-top: 20px;
+    grid-template-columns: [col-0] 0vw [col-1] 90vw;
+    grid-template-rows: [row-0] 75vh [row-1] 10vh [row-2];
+    gap: 10px 10px;
+
+    & > .item {
+      &__login {
+        grid-column: col-1;
+        grid-row: row-0 / row-1;
+        min-width: 200px;
+        max-width: 600px;
+        max-height: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        .item__login {
+          min-width: 200px;
+          max-width: 600px;
+          max-height: 800px;
+          width: 60vw;
+          margin: auto;
+          .login__form {
+            min-width: 200px;
+            max-width: 200px;
+            width: 60%;
+            margin: auto;
+            .form-label {
+              font-size: 15px;
+            }
+          }
+        }
+        .error-container {
+          width: 100%;
+          min-height: 1.2rem;
+          text-align: center;
+          display: inline-block;
+          .error-prompt {
+            display: inline-block;
+            width: 100%;
+            color: red;
+            transition: 0.3s;
+            &.hide {
+              display: none;
+            }
+          }
+        }
+      }
+      &__actions {
+        background: none;
+        grid-column: col-1;
+        grid-row: row-1 / row-2;
+        max-width: 600px;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        .box__title {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.error{
+  color: red;
+
+}

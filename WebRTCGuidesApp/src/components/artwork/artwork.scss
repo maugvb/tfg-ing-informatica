@@ -1,0 +1,17 @@
+.artwork-container {
+  width: 100vw;
+  height: 560px;
+  background-color: black;
+  position: relative;
+  left: 30.7%;
+  bottom: -50%;
+  transform: translateX(-50%);
+  .react-p5 {
+    max-width: 800px;
+    max-height: 480px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    display: block;
+  }
+}

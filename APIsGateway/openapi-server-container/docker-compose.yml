@@ -1,0 +1,75 @@
+# A docker compose to create a MySql persistent database.
+# usefull guide: https://stavshamir.github.io/python/dockerizing-a-flask-mysql-app-with-docker-compose/
+
+version: '3'
+
+         
+ 
+services:
+  tile38-leader:
+    image: tile38/tile38:1.27.1
+    container_name: tile38-leader
+    command: >
+      /bin/sh -c 'mkdir -p tmp/data && \
+                  echo "{\"logconfig\":{\"level\":\"debug\",\"encoding\":\"json\",\"outputPaths\":[\"stdout\"],\"errorOutputPaths\":[\"stderr\"],\"encoderConfig\": {\"messageKey\":\"message\",\"levelKey\":\"level\",\"levelEncoder\":\"lowercase\", \"timeKey\":\"timestamp\",\"timeEncoder\":\"ISO8601\"}}}"> tmp/data/config
+                  tile38-server -d tmp/data -vv -p 9851 -l json'
+    ports:
+      - 9851:9851
+      # if metrics-addr is set
+      # - 4321:4321
+
+
+  tile38-follower:
+    image: tile38/tile38:1.27.1
+    container_name: tile38-follower
+    command: >
+      /bin/sh -c 'mkdir -p tmp/data && \
+                  echo "{\"follow_host\":\"tile38-leader\",\"follow_port\":9851,\"logconfig\":{\"level\":\"debug\",\"encoding\":\"json\",\"outputPaths\":[\"stdout\"],\"errorOutputPaths\":[\"stderr\"],\"encoderConfig\":{\"messageKey\":\"message\",\"levelKey\":\"level\",\"levelEncoder\":\"lowercase\",\"timeKey\":\"timestamp\",\"timeEncoder\":\"ISO8601\"}}}" > tmp/data/config
+                  tile38-server -d tmp/data -vv -p 9852 -l json'
+    ports:
+      - 9852:9852
+
+
+  db:
+    image: mysql:5.7.16
+    container_name: db_flask
+    
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_password
+    ports:
+      - "6033:3306"
+      #- "3306:3306" port fuera: port container interno
+    volumes:
+      - ./data/db:/var/lib/mysql
+      # - ./db:/docker-entrypoint-initdb.d/:ro # mage’s specification runs all .sql scripts in the given directory
+
+ 
+  app:
+    restart: always
+    container_name: app_flask
+    build: ./ #service-flask # build the docker in this folder
+    links:
+      - db
+      - tile38-leader
+      - tile38-follower
+    depends_on: 
+      - db
+      - tile38-leader
+      - tile38-follower
+    ports:
+      - "8080:8080"
+
+
+  # swagger_app:
+  #   container_name: app_swagger_flask
+  #   build: ./python-flask-server # build the docker in this folder
+  #   links:
+  #     - db
+  #   depends_on: 
+  #     - db
+  #   ports:
+  #     - "5001:5000"

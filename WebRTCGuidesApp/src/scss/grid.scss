@@ -1,0 +1,77 @@
+@import './colors.scss';
+
+.grid {
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: grid;
+  padding: 7vh 1vw 1vh 1vw;
+  grid-template-columns: [col-0] minmax(24vw, 32vw) [col-1] 72vw [col-2];
+  grid-template-rows: [row-0] 70vh [row-1] 10vh [row-2] 10vh;
+  gap: 10px 10px;
+
+  & > .item {
+    &__chat {
+      grid-column: col-0;
+      grid-row: row-0 / row-1;
+    }
+
+    &__camera {
+      grid-column: col-1;
+      grid-row: row-0 / row-1;
+    }
+
+    &__actions {
+      grid-column: col-1;
+      grid-row: row-1 / row-2;
+    }
+  }
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 1000px) {
+  .grid {
+    grid-template-columns: [col-0] minmax(29vw, 32vw) [col-1] 63vw [col-2];
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-device-width : 775px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 1vw 1vh 1vw;
+  }
+
+  .item {
+    &__chat {
+      min-height: 20vh;
+      margin-top: 5vh;
+    }
+
+    &__camera {
+      min-height: 50vh;
+      margin-top: 5vh;
+    }
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (orientation : portrait) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 1vw 1vh 1vw;
+  }
+
+  .item {
+    &__chat {
+      min-height: 20vh;
+      margin-top: 5vh;
+    }
+
+    &__camera {
+      min-height: 50vh;
+      margin-top: 5vh;
+    }
+  }
+}

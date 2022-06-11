@@ -1,0 +1,36 @@
+aiortc==1.2.0
+av==8.0.3
+matplotlib==3.4.2
+numpy==1.21.0
+opencv_python==4.5.2.54
+pydub==0.25.1
+streamlit==0.83.0
+streamlit_webrtc==0.22.1
+typing_extensions==3.10.0.0
+
+# YOLO
+Pillow
+PyYAML>=5.3.1
+scipy>=1.4.1
+torch>=1.7.0
+torchvision>=0.8.1
+tqdm>=4.41.0
+seaborn>=0.11.0
+pandas
+
+# Detectron
+fvcore==0.1.2.post20201030
+Cython==0.29.21
+pycocotools==2.0.2
+
+# Training
+scikit-image
+shapely
+
+# Text
+wikipedia
+
+# Video Streaming
+aiohttp
+python-engineio
+python_socketio
