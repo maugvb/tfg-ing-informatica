@@ -1,0 +1,33 @@
+\capitulo{7}{Conclusiones y Líneas de trabajo futuras}
+
+\section{Conclusiones}
+Con este proyecto se han aprendido multitud de conceptos nuevos y se han afianzado otros.
+
+Tras la realización del proyecto se han llegado a las siguientes conclusiones:
+\begin{itemize}
+    \item Se ha cumplido el objetivo general del proyecto, pudiendo desarrollar un asistente para las visitas a museos enriqueciendo los tours con realidad aumentada. Para el museo se ha creado una plataforma para realizar tours de manera cómoda y pudiendo obtener información de la localización de los usuario.
+    \item Se ha cumplido con el objetivo general de crear el proyecto en \textit{Open Source}.
+    \item Se ha cumplido el objetivo de investigación del proyecto, pudiendo obtener una localización de los usuarios precisa, triangulada con un margen de error de aproximadamente 20 centímetros en el mapa.
+    \item Se ha creado una \textit{API} para gestionar todo el flujo de datos entre la aplicación web, la base de datos y las \textit{raspberries}.
+    \item Se han utilizado diversas tecnologías para la realización del proyecto. Desde \textit{React} para el desarrollo web, \textit{SQLAlchemy} y \textit{Flask} para la lógica de la \textit{API}, el uso de un archivo \textit{YAML} para el diseño de la \textit{API} y \textit{P5} para el uso de \textit{canvas} en el dibujo sobre los cuadros para la interacción con los usuarios.
+\end{itemize}
+
+\section{Líneas de trabajo futuras}
+Los sistemas de posicionamiento \textit{indoor} en un museo permiten que el guía pueda gestionar flujos de gente, bien porque el guía lleve a los visitantes por sitios con poca afluencia de personas, o bien porque existan sistemas inteligentes que ayuden al visitante o al guía a diseñar una ruta de masificación de visitantes, pudiendo evitar así grandes aglomeraciones si fuese necesario, dando al usuario una mejor experiencia en la visita.
+
+Durante el desarrollo del proyecto se han tenido en cuenta ideas que se han tenido que descartar por el límite temporal, dando margen para el desarrollo del proyecto en distintos ámbitos.
+
+\begin{itemize}
+    \item En el mapa, con el uso de un dispositivo móvil, se podría implementar el uso del giroscopio para poder dar al usuario una mejor experiencia de usuario pudiendo ver en que dirección en el mapa está, y así poderle mostrar información si esta de cara a una obra de arte mediante realidad aumentada.
+    \item Se podría realizar el desarrollo de una aplicación móvil nativa para mejorar la experiencia de usuario en móviles para la realización de visitas.
+    \item Se podría utilizar algún modelo entrenado para mejorar aún más la precisión de los usuario si se necesitase.
+    \item Se podría emplear algún mecanismo para predecir si el usuario se va a acercar a una obra de arte. Esto combinado con el uso del giroscopio podría mejorar de manera notable la experiencia de uso en los usuarios.
+    \item Se podría implementar un sistema para cambiar de planta en el mapa para el guía, cambiando así las capas que se utilizan para el render del mapa, cambiando la arquitectura de la planta y la distribución de los distintos usuarios.
+    
+    \item Se podría intentar mejorar la exportación de los planos del edificio al mapa sin tener que utilizar herramientas como \textit{Autocad}. Automatizando la creación de los planos de las plantas mediante algún tipo de escaneado de suelo.
+    \item Se podría implementar un sistema de plantas en el mapa para museos grandes. Esto sería un característica esencial si queremos escalar la aplicación a museos grandes, ya que el guía, en un escenario realista, necesitaría cambiar de planta en muchas ocasiones para dar los tours.
+    \item Se podría intentar escalar el sistema a museos con gran número de usuarios. En las pruebas se probaron hasta 200 usuarios ficticios, pero no se probaron este número de usuarios reales, ni con gran número de habitaciones, ni con distintas plantas, porque no se disponía de esta característica.
+    
+    \item Como última línea de trabajo se podría implementar un entorno de realidad aumentada para las \textit{HoloLens 2}. Esta línea de trabajo era inicialmente un objetivo del proyecto pero por limitaciones de tiempo no se pudo cumplir.
+
+\end{itemize}
